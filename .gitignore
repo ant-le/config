@@ -1,0 +1,4 @@
+tmux/plugins/*
+iterm2/*
+
+*.DS_STORE
