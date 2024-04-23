@@ -1,4 +1,7 @@
 tmux/plugins/*
 iterm2/*
+flutter/*
+rstudio/*
+github-copilot/*
 
 *.DS_STORE
