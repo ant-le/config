@@ -12,6 +12,23 @@ return {
                 auto_install = true,
             },
         },
+        {
+            "zbirenbaum/copilot-cmp",
+            config = function()
+                require("copilot_cmp").setup()
+            end,
+        },
+        {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+                require("copilot").setup({
+                    suggestion = { enabled = false },
+                    panel = { enabled = false },
+                })
+            end,
+        },
 
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },
@@ -55,7 +72,15 @@ return {
         cmp_mappings['<S-Tab>'] = nil
 
         lsp.setup_nvim_cmp({
-            mapping = cmp_mappings
+            mapping = cmp_mappings,
+            sources = {
+                -- Copilot Source
+                { name = "copilot",  group_index = 2 },
+                -- Other Sources
+                { name = "nvim_lsp", group_index = 2 },
+                { name = "path",     group_index = 2 },
+                { name = "luasnip",  group_index = 2 },
+            },
         })
 
         lsp.set_preferences({
