@@ -1,4 +1,5 @@
 tmux/plugins/*
+wandb/*
 iterm2/*
 flutter/*
 rstudio/*
