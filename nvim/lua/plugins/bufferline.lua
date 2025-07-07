@@ -1,11 +1,24 @@
 return {
     "akinsho/bufferline.nvim",
+    after = "catppuccin",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     version = "*",
-    opts = {
-        options = {
-            mode = "tabs",
-            separator_style = "slant",
-        },
-    },
+    config = function()
+        require("bufferline").setup({
+            options = {
+                mode = "tabs",
+                separator_style = "slant",
+                diagnostics = "nvim_lsp",
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "File Explorer",
+                        text_align = "left",
+                        separator = true,
+                    },
+                },
+            },
+            highlights = require("catppuccin.groups.integrations.bufferline").get()
+        })
+    end,
 }

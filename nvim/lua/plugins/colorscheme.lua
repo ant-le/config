@@ -1,8 +1,25 @@
 return {
     "catppuccin/nvim",
-    priority = 1000,
+    lazy = true,
     name = "catppuccin",
-    config = function()
-        vim.cmd([[colorscheme catppuccin]])
-    end,
+    priority = 1000,
+    opts = {
+        integrations =  {
+            mason = true,
+        },
+    },
+  config = function()
+    require("catppuccin").setup({
+        flavour = "macchiato",
+        background = {
+            light = "machhiato",
+            dark = "macchiato",
+        },
+        transparent_background = true, -- disables setting the background color.
+        term_colors = false, -- sets terminal colors
+    })
+
+    -- Set the colorscheme
+    vim.cmd.colorscheme "catppuccin"
+  end,
 }

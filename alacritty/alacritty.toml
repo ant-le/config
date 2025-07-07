@@ -1,0 +1,21 @@
+[general]
+import = ["~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"]
+live_config_reload = true
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.95
+
+[window.padding]
+x = 25
+y = 20
+
+[font]
+size = 20.0
+normal.family = "MesloLGS Nerd Font Mono"
+
+[cursor]
+style = "Beam"
+unfocused_hollow = false
+thickness = 0.2
