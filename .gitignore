@@ -6,3 +6,4 @@ rstudio/*
 github-copilot/*
 
 *.DS_STORE
+*.python-version

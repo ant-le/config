@@ -6,6 +6,7 @@ return {
     opts = {
         integrations =  {
             mason = true,
+            blink_cmp = true,
         },
     },
   config = function()
