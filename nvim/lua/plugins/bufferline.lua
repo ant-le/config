@@ -18,7 +18,7 @@ return {
                     },
                 },
             },
-            highlights = require("catppuccin.groups.integrations.bufferline").get()
+            highlights = require("catppuccin.special.bufferline").get_theme()
         })
     end,
 }

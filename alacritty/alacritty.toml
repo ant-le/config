@@ -8,7 +8,7 @@ opacity = 0.8
 blur = true
 
 [window.padding]
-x = 25
+x = 15
 y = 20
 
 [font]

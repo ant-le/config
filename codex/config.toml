@@ -1,0 +1,16 @@
+sandbox_mode = "workspace-write"
+model = "gpt-5-codex"
+model_reasoning_effort = "high"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.svelte]
+command = "npx"
+args = ["-y", "@sveltejs/mcp"]
+
+
+[mcp_servers.context7]
+args = ["-y", "@upstash/context7-mcp"]
+command = "npx"

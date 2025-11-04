@@ -1,0 +1,40 @@
+{
+  "context": {
+    "fileFiltering": {
+      "respectGitIgnore": false
+    }
+  },
+  "mcpServers": {
+    "svelte": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@sveltejs/mcp"
+      ],
+      "timeout": 20000,
+      "trust": true
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "timeout": 20000,
+      "trust": true
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "timeout": 20000,
+      "trust": true
+    }
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
+}
