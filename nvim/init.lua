@@ -6,9 +6,7 @@ require("core.lsp")
 local actions = require("telescope.actions")
 
 local open_after_tree = function(prompt_bufnr)
-    vim.defer_fn(function()
-        actions.select_default(prompt_bufnr)
-    end, 100) -- Delay allows filetype and plugins to settle before opening
+    actions.select_default(prompt_bufnr)
 end
 
 require("telescope").setup({
