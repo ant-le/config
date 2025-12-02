@@ -1,5 +1,5 @@
 sandbox_mode = "workspace-write"
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
 
 [mcp_servers.playwright]
@@ -14,3 +14,7 @@ args = ["-y", "@sveltejs/mcp"]
 [mcp_servers.context7]
 args = ["-y", "@upstash/context7-mcp"]
 command = "npx"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true

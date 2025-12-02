@@ -28,7 +28,17 @@
         "-y",
         "@upstash/context7-mcp"
       ],
-      "timeout": 20000,
+      "timeout": 120000,
+      "trust": true
+    },
+    "codex": {
+      "command": "codex",
+      "args": [
+        "--sandbox",
+        "workspace-write",
+        "mcp-server"
+      ],
+      "timeout": 1000000,
       "trust": true
     }
   },
@@ -36,5 +46,8 @@
     "auth": {
       "selectedType": "oauth-personal"
     }
+  },
+  "general": {
+    "previewFeatures": true
   }
 }

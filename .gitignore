@@ -7,3 +7,16 @@ github-copilot/*
 
 *.DS_STORE
 *.python-version
+
+# CLI configs
+codex/auth.json
+codex/history.jsonl
+codex/log
+codex/sessions/*
+codex/version.json
+gemini/google_accounts.json
+gemini/node_modules/*
+gemini/oauth_creds.json
+gemini/package.json
+gemini/pnpm-lock.yaml
+gemini/tmp/*
