@@ -1,0 +1,49 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "plugin": [
+        "opencode-gemini-auth@latest"
+    ],
+    "lsp": {},
+    "formatter": {
+        "prettier": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/prettier",
+                "--write",
+                "$FILE"
+            ],
+            "extensions": [
+                ".js",
+                ".ts",
+                ".jsx",
+                ".tsx",
+                ".json",
+                ".md",
+                ".css",
+                ".scss",
+                ".html",
+                ".yaml",
+                ".yml",
+                ".svelte",
+                ".vue"
+            ]
+        },
+        "black": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/black",
+                "$FILE"
+            ],
+            "extensions": [
+                ".py"
+            ]
+        },
+        "isort": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/isort",
+                "$FILE"
+            ],
+            "extensions": [
+                ".py"
+            ]
+        }
+    }
+}

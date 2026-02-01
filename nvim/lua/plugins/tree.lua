@@ -37,7 +37,7 @@ return {
                 },
             },
             filters = {
-                custom = { ".DS_Store", ".git", ".python-version" },
+                custom = { ".DS_Store", ".git", ".python-version", "__pycache__", ".pytest_cache" },
             },
             git = {
                 ignore = false,

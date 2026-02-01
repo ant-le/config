@@ -33,3 +33,6 @@ opt.splitbelow = true -- split horizontal window to the bottom
 opt.swapfile = false
 opt.updatetime = 50
 
+-- persistent undo
+opt.undofile = true
+

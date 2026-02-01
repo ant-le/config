@@ -11,25 +11,34 @@ return {
 		"selene.yml",
 		"stylua.toml",
 	},
-   settings = {
-        Lua = {
-            diagnostics = {
-                disable = { "missing-fields" },
-                globals = {
-                    "vim",
-                    "Snacks",
-                },
-            },
-            hint = {
-                enable = true,
-                setType = false,
-                paramType = true,
-                paramName = "Disable",
-                semicolon = "Disable",
-                arrayIndex = "Disable",
-            },
-        },
-    },
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					unpack(vim.api.nvim_get_runtime_file("", true)),
+				},
+			},
+			diagnostics = {
+				disable = { "missing-fields" },
+				globals = {
+					"vim",
+					"Snacks",
+				},
+			},
+			hint = {
+				enable = true,
+				setType = false,
+				paramType = true,
+				paramName = "Disable",
+				semicolon = "Disable",
+				arrayIndex = "Disable",
+			},
+		},
+	},
 	single_file_support = true,
 	log_level = vim.lsp.protocol.MessageType.Warning,
 }
