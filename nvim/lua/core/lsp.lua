@@ -7,6 +7,7 @@ vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
 local servers = {
     "gopls",
     "lua_ls",
+    "terraform_ls",
     "svelte_ls",
     "css_ls",
     "html_ls",

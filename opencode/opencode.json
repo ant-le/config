@@ -3,7 +3,143 @@
     "plugin": [
         "opencode-gemini-auth@latest"
     ],
-    "lsp": {},
+    "mcp": {
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+            }
+        }
+    },
+    "lsp": {
+        "lua": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/lua-language-server"
+            ],
+            "extensions": [
+                ".lua"
+            ],
+            "initialization": {
+                "Lua": {
+                    "workspace": {
+                        "checkThirdParty": false
+                    }
+                }
+            }
+        },
+        "css": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/vscode-css-language-server",
+                "--stdio"
+            ],
+            "extensions": [
+                ".css",
+                ".scss",
+                ".less"
+            ]
+        },
+        "go": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/gopls",
+                "--stdio"
+            ],
+            "extensions": [
+                ".go",
+                ".gomod",
+                ".gowork",
+                ".gotmpl",
+                ".gosum"
+            ]
+        },
+        "html": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/vscode-html-language-server",
+                "--stdio"
+            ],
+            "extensions": [
+                ".html",
+                ".blade",
+                ".jsx",
+                ".tsx",
+                ".svelte"
+            ]
+        },
+        "json": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/vscode-json-language-server",
+                "--stdio"
+            ],
+            "extensions": [
+                ".json",
+                ".jsonc"
+            ]
+        },
+        "python": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/pylsp"
+            ],
+            "extensions": [
+                ".py"
+            ]
+        },
+        "svelte": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/svelteserver",
+                "--stdio"
+            ],
+            "extensions": [
+                ".svelte"
+            ]
+        },
+        "tailwindcss": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/tailwindcss-language-server",
+                "--stdio"
+            ],
+            "extensions": [
+                ".html",
+                ".css",
+                ".scss",
+                ".less",
+                ".js",
+                ".ts",
+                ".jsx",
+                ".tsx",
+                ".vue",
+                ".svelte",
+                ".astro",
+                ".php",
+                ".md",
+                ".mdx"
+            ]
+        },
+        "ts": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/typescript-language-server",
+                "--stdio"
+            ],
+            "extensions": [
+                ".js",
+                ".jsx",
+                ".ts",
+                ".tsx",
+                ".mjs",
+                ".cjs"
+            ]
+        },
+        "terraform": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/terraform-ls",
+                "serve"
+            ],
+            "extensions": [
+                ".tf",
+                ".tfvars",
+                ".hcl"
+            ]
+        }
+    },
     "formatter": {
         "prettier": {
             "command": [
@@ -43,6 +179,17 @@
             ],
             "extensions": [
                 ".py"
+            ]
+        },
+        "terraform": {
+            "command": [
+                "/Users/anton/.local/share/nvim/mason/bin/terraform",
+                "$FILE"
+            ],
+            "extensions": [
+                ".tf",
+                ".tfvars",
+                ".hcl"
             ]
         }
     }
