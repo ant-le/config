@@ -1,12 +1,13 @@
 return {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = false,
     priority = 1000,
     config = function()
         require("catppuccin").setup({
             flavour = "macchiato",
             background = {
-                light = "machhiato",
+                light = "macchiato",
                 dark = "macchiato",
             },
             transparent_background = true, -- disables setting the background color.

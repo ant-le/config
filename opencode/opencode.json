@@ -10,7 +10,16 @@
             "headers": {
                 "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
             }
-        }
+        },
+        "tavily": {
+            "type": "remote",
+            "url": "https://mcp.tavily.com/mcp",
+            "oauth": false,
+            "headers": {
+                "Authorization": "Bearer {env:TAVILY_API_KEY}"
+            },
+            "enabled": true
+        },
     },
     "lsp": {
         "lua": {
