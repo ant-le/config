@@ -1,11 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.g.python3_host_prog = "/Users/anton/.pyenv/versions/nvim/bin/python"
+local keymap = vim.keymap
 
-local keymap = vim.keymap -- 
-
-keymap.set("n", "<leader>pv", vim.cmd.Ex)
 keymap.set('n', '<leader>fm', vim.lsp.buf.format, { desc = 'Format buffer' })
 
 

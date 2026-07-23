@@ -5,12 +5,6 @@ return {
     config = function()
         local nvimtree = require("nvim-tree")
 
-        -- recommended settings from nvim-tree documentation
-        vim.g.loaded_netrw = 1
-        vim.g.loaded_netrwPlugin = 1
-
-        vim.opt.termguicolors = true
-
         -- configure nvim-tree
         nvimtree.setup({
             view = {

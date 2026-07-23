@@ -8,8 +8,6 @@ return {
                 pycodestyle = { enabled = false },
                 mccabe = { enabled = false },
                 pyflakes = { enabled = true },
-                black = { enabled = true },
-                isort = { enabled = true },
                 autopep8 = { enabled = false },
             }
         }

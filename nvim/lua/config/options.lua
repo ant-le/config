@@ -17,6 +17,8 @@ opt.wrap = false -- disable line wrapping
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true  -- if you include mixed case in your search, assumes you want case-sensitive
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 opt.termguicolors = true
 opt.scrolloff = 8
 opt.signcolumn = "yes"
@@ -35,4 +37,3 @@ opt.updatetime = 50
 
 -- persistent undo
 opt.undofile = true
-

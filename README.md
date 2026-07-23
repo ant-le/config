@@ -1,13 +1,22 @@
 ## Usage
-General configurations with [Alacritty](https://alacritty.org/), 
-[Neovim](https://neovim.io/) and [Tmux](https://github.com/tmux/tmux/wiki)
+
+Personal configurations for [Kitty](https://sw.kovidgoyal.net/kitty/),
+[Neovim](https://neovim.io/), [Tmux](https://github.com/tmux/tmux/wiki),
+and [OpenCode](https://opencode.ai/).
 
 ## Requirements
-- `Nerd Fonts` for alacritty
-- [`Alacritty-Themes`](https://github.com/alacritty/alacritty-theme)
 
-## Future Updates
-- construct common sandbox for all models for easier communication
-- make nvim-installed lang server available to CLI tools for coding
-- Enhance Documentation: README, Build Custom DocAgent, other Documents
-- Add local LLMs for sensitive tasks
+- A Nerd Font
+- `kitty`, `nvim`, `tmux`, and `opencode`
+- Language servers used by Neovim, installed with Mason as needed
+
+## Development Session
+
+Start Neovim and OpenCode in a project-specific tmux session:
+
+```sh
+cd /path/to/project
+dev-session
+```
+
+Run `make check` from this repository to validate the configuration.
