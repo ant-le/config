@@ -8,6 +8,7 @@ and [OpenCode](https://opencode.ai/).
 
 - A Nerd Font
 - `kitty`, `nvim`, `tmux`, and `opencode`
+- `jq` for configuration validation
 - Language servers used by Neovim, installed with Mason as needed
 
 ## Development Session

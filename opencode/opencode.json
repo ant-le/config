@@ -7,7 +7,8 @@
       "url": "https://mcp.context7.com/mcp",
       "headers": {
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
-      }
+      },
+      "timeout": 30000
     },
     "tavily": {
       "type": "remote",
@@ -16,11 +17,36 @@
       "headers": {
         "Authorization": "Bearer {env:TAVILY_API_KEY}"
       },
-      "enabled": true
+      "enabled": true,
+      "timeout": 30000
     }
   },
 
   "lsp": true,
+  "snapshot": true,
+  "share": "disabled",
+  "subagent_depth": 1,
+
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "tail_turns": 4,
+    "reserved": 12000
+  },
+
+  "tool_output": {
+    "max_lines": 500,
+    "max_bytes": 51200
+  },
+
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "coverage/**",
+      ".terraform/**"
+    ]
+  },
 
   "permission": {
     "read": {
@@ -50,15 +76,28 @@
       "git log --oneline -10": "allow",
       "git branch --show-current": "allow",
       "make check": "allow",
+      "npm test": "allow",
       "npm test *": "allow",
+      "pytest": "allow",
       "pytest *": "allow",
+      "ruff": "allow",
       "ruff *": "allow",
+      "mypy": "allow",
       "mypy *": "allow",
+      "go test": "allow",
       "go test *": "allow",
+      "terraform validate": "allow",
       "terraform validate *": "allow",
+      "git push": "deny",
       "git push *": "deny",
+      "git reset --hard": "deny",
       "git reset --hard *": "deny",
+      "git clean": "deny",
+      "git clean *": "deny",
+      "rm -rf *": "deny",
+      "terraform apply": "deny",
       "terraform apply *": "deny",
+      "terraform destroy": "deny",
       "terraform destroy *": "deny"
     },
     "external_directory": {
@@ -75,6 +114,7 @@
     "webfetch": "allow",
     "question": "allow",
     "todowrite": "allow",
-    "skill": "allow"
+    "skill": "allow",
+    "doom_loop": "ask"
   }
 }

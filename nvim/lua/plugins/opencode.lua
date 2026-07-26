@@ -1,5 +1,5 @@
 return {
-  "git@github.com:nickjvandyke/opencode.nvim",
+  "nickjvandyke/opencode.nvim",
   version = "*",
   config = function()
     vim.g.opencode_opts = {
@@ -37,21 +37,25 @@ return {
     vim.o.autoread = true
 
     local map = vim.keymap.set
+    local function ask(prompt)
+      vim.cmd("update")
+      require("opencode").ask(prompt)
+    end
 
     map({ "n", "x" }, "<leader>oa", function()
-      require("opencode").ask("@this: ")
+      ask("@this: ")
     end, { desc = "Ask OpenCode about current symbol" })
 
     map({ "n", "x" }, "<leader>ob", function()
-      require("opencode").ask("@buffer: ")
+      ask("@buffer: ")
     end, { desc = "Ask OpenCode about current buffer" })
 
     map({ "n", "x" }, "<leader>oB", function()
-      require("opencode").ask("@buffers: ")
+      ask("@buffers: ")
     end, { desc = "Ask OpenCode about all buffers" })
 
     map({ "n", "x" }, "<leader>od", function()
-      require("opencode").ask("@diagnostics: ")
+      ask("@diagnostics: ")
     end, { desc = "Ask OpenCode about diagnostics" })
 
     map({ "n", "x" }, "<leader>os", function()
@@ -65,6 +69,30 @@ return {
     map("n", "goo", function()
       return require("opencode").operator("@this ") .. "_"
     end, { expr = true, desc = "Send current line to OpenCode" })
+
+    map("n", "<S-C-u>", function()
+      require("opencode").command("session.half.page.up")
+    end, { desc = "Scroll OpenCode up" })
+
+    map("n", "<S-C-d>", function()
+      require("opencode").command("session.half.page.down")
+    end, { desc = "Scroll OpenCode down" })
+
+    map("n", "<leader>oi", function()
+      require("opencode").command("session.interrupt")
+    end, { desc = "Interrupt OpenCode" })
+
+    map("n", "<leader>ou", function()
+      require("opencode").command("session.undo")
+    end, { desc = "Undo OpenCode action" })
+
+    map("n", "<leader>on", function()
+      require("opencode").command("session.new")
+    end, { desc = "New OpenCode session" })
+
+    map("n", "<leader>oc", function()
+      require("opencode").command("session.compact")
+    end, { desc = "Compact OpenCode session" })
 
     -- opencode runs in a tmux pane; toggle focus via tmux
     map("n", "<leader>ot", function()
