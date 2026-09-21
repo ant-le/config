@@ -1,0 +1,71 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "catppuccin-macchiato",
+    "mode": "system"
+  },
+  "animations": true,
+  "mouse": true,
+  "cursor": {
+    "style": "block",
+    "blinking": true
+  },
+  "scroll": {
+    "acceleration": true
+  },
+  "prompt": {
+    "editor": true,
+    "paste": "compact",
+    "image_preview": false
+  },
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": false,
+    "thinking": "hide",
+    "grouping": "auto",
+    "image_preview": false,
+    "tps": true,
+    "markdown": "rendered",
+    "new_location": "launch",
+    "permissions": "prompt"
+  },
+  "tabs": {
+    "enabled": true,
+    "scope": "cwd",
+    "layout": "horizontal",
+    "indicators": "status"
+  },
+  "diffs": {
+    "wrap": "word",
+    "source": "branch",
+    "tree": true,
+    "single": false,
+    "view": "auto"
+  },
+  "attention": {
+    "notifications": true,
+    "sound": false,
+    "volume": 0.4
+  },
+  "terminal": {
+    "title": true,
+    "copy": "select"
+  },
+  "keybinds": {
+    "help.show": "<leader>h",
+    "docs.open": "<leader>d",
+    "opencode.settings": "<leader>o",
+    "service.restart": "<leader>R",
+    "mcp.list": "<leader>M",
+    "plugins.list": "<leader>p",
+    "prompt.skills": "<leader>k",
+    "session.copy": "<leader>C",
+    "session.toggle.thinking": "<leader>T"
+  },
+  "leader": {
+    "timeout": 1500
+  },
+  "plugins": [
+    "./plugins/quota"
+  ]
+}

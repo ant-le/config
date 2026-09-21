@@ -7,6 +7,4 @@ gh/*
 # CLI configs
 /opencode/context-mode
 /opencode/node_modules/
-/opencode/package.json
-/opencode/package-lock.json
 /opencode/bun.lock
