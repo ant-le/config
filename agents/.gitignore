@@ -1,0 +1,11 @@
+
+# Private provider account state and credential files
+/claude/claude.json
+/claude/claude.json.*
+/claude/.credentials.json
+/codex/auth.json
+/codex/.credentials.json
+/scripts/__pycache__/
+/claude/.claude.json
+/claude/.claude.json.*
+/t3/

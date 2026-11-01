@@ -10,7 +10,7 @@ return {
                 lualine_c = {},
                 lualine_x = { 'encoding', 'fileformat' },
                 lualine_y = { 'filetype' },
-                lualine_z = { require("opencode").statusline },
+                lualine_z = { 'location' },
             },
             inactive_sections = {
                 lualine_c = { 'diff', 'diagnostics' },

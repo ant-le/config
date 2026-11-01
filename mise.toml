@@ -1,0 +1,42 @@
+[vars]
+agents_root = "{{config_source | dirname}}"
+
+[tasks."agents:apply"]
+description = "Apply portable agent configuration on Hetzner; pass --check to preview"
+dir = "{{vars.agents_root}}"
+tools = { python = "3.14.7" }
+run = "python3 agents/scripts/apply.py"
+
+[tasks."agents:test"]
+description = "Test shared agent merge and preservation behavior using disposable homes"
+dir = "{{vars.agents_root}}"
+tools = { python = "3.14.7" }
+run = "python3 -B -m unittest discover -s agents/scripts -p 'test_*.py'"
+
+[tasks.check]
+dir = "{{vars.agents_root}}"
+description = "Validate portable configuration, agent merges, Neovim, tmux, and whitespace"
+depends = ["agents:test", "check:config", "check:nvim", "check:tmux"]
+run = "git diff --check"
+
+[tasks."check:config"]
+dir = "{{vars.agents_root}}"
+description = "Parse tracked configuration formats"
+tools = { python = "3.14.7" }
+run = "python3 -B agents/scripts/check.py"
+
+[tasks."check:nvim"]
+dir = "{{vars.agents_root}}"
+description = "Load Neovim configuration with installed plugins"
+run = "XDG_CONFIG_HOME=\"$PWD\" nvim --headless -i NONE '+lua require(\"config.check\")' '+qa'"
+
+[tasks."check:tmux"]
+dir = "{{vars.agents_root}}"
+description = "Load tmux configuration in a disposable server"
+run = '''
+set -eu
+server="dotfiles-check-$$"
+trap 'tmux -L "$server" kill-server 2>/dev/null || true' EXIT
+tmux -f /dev/null -L "$server" new-session -d
+tmux -L "$server" source-file "$PWD/tmux/tmux.conf"
+'''

@@ -4,7 +4,6 @@ gh/*
 .DS_Store
 *.python-version
 
-# CLI configs
-/opencode/context-mode
-/opencode/node_modules/
-/opencode/bun.lock
+# Local machine configuration and container runtime state
+/mise/
+/k3d/

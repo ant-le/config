@@ -5,9 +5,9 @@ return {
     priority = 1000,
     config = function()
         require("catppuccin").setup({
-            flavour = "macchiato",
+            flavour = "auto",
             background = {
-                light = "macchiato",
+                light = "latte",
                 dark = "macchiato",
             },
             transparent_background = true, -- disables setting the background color.
