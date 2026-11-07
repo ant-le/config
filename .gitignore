@@ -7,3 +7,6 @@ gh/*
 # Local machine configuration and container runtime state
 /mise/
 /k3d/
+
+# Muse credentials, project trust, local preferences, and lock files
+/muse/

@@ -10,6 +10,15 @@ settings. Never publish Claude account state, OAuth tokens or Codex auth files.
 and Neovim hooks have been removed. Select it with `OPENCODE_CONFIG_DIR` as
 described in the [root README](../README.md). `t3/` is ignored Mac-specific state.
 
+## Local T3 release review
+
+[`t3-release-review`](skills/t3-release-review/SKILL.md) replaces the hourly release
+automation with an on-demand review of Hetzner relevance, provider consistency,
+and features worth trying. Invoke `$t3-release-review` locally; it reuses the
+existing untracked review ledger and does not install or deploy updates.
+Native local skill links follow the same convention described below. This skill
+is not installed on Hetzner by `agents:apply`.
+
 ## Local council and improvement skills
 
 [`model-council`](skills/model-council/SKILL.md) supplies the reusable four-family
@@ -50,6 +59,22 @@ Antigravity `~/.gemini/config/skills`. Restart an idle T3 agent session to refre
 discovery. These are skill files and a profile interpreted by the coordinator,
 not a new T3 settings schema or background service. See the
 [authoring and model rationale](skills/model-council/references/authoring-basis.md).
+
+Muse Code also discovers the shared `~/.agents/skills` links directly; no skill
+import or duplicate installation is needed. Its native personal instructions at
+`~/.config/muse/AGENTS.md` are a local symlink to this checkout's `AGENTS.md`
+(`$XDG_CONFIG_HOME/muse/AGENTS.md` with a custom XDG config home). Create that link
+only when the destination is absent; preserve existing personal instructions.
+Muse's `/rules` command confirms the native file loads, and
+`muse skills list --source user --json` checks skill discovery and activation.
+Verified locally with Muse Code 1.4.14: all four shared skills are enabled with
+no diagnostics. Native Muse instructions take precedence over its foreign
+personal-rule fallback; this avoids relying on Claude's `@` import wrapper.
+Project instructions and skills still require a trusted workspace. See Muse's
+[configuration](https://dev.meta.ai/docs/muse-code/configuration) and
+[skill discovery](https://dev.meta.ai/docs/muse-code/extending) documentation.
+The root `muse/` directory stays ignored, including credentials, trust records,
+settings, locks and this machine's instruction symlink.
 
 The Hetzner installer below still manages only `obsidian-markdown`; it does not
 deploy these new skills. Do not run `agents:apply` to install them locally.
