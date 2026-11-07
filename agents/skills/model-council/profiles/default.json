@@ -1,0 +1,57 @@
+{
+  "name": "expert",
+  "version": 3,
+  "selected_on": "2026-11-07",
+  "description": "Single expert council; fixed high reasoning settings and user-preference review weights. No automatic model, effort or weight changes.",
+  "seats": [
+    {
+      "family": "google",
+      "target": {
+        "providerInstanceId": "antigravity",
+        "model": "gemini-4-argon",
+        "options": {
+          "thinking_level": "high"
+        }
+      },
+      "id": "google",
+      "review_weight": 0.15
+    },
+    {
+      "family": "anthropic",
+      "target": {
+        "providerInstanceId": "claudeAgent",
+        "model": "claude-opus-5-5",
+        "options": {
+          "effort": "high"
+        }
+      },
+      "id": "anthropic",
+      "review_weight": 0.3
+    },
+    {
+      "family": "openai",
+      "target": {
+        "providerInstanceId": "codex",
+        "model": "gpt-6-astra",
+        "options": {
+          "reasoningEffort": "high"
+        }
+      },
+      "id": "openai",
+      "review_weight": 0.3
+    },
+    {
+      "family": "muse",
+      "target": {
+        "providerInstanceId": "muse",
+        "model": "muse-wonder-1.0",
+        "options": {
+          "reasoningEffort": "high"
+        }
+      },
+      "id": "muse",
+      "review_weight": 0.25
+    }
+  ],
+  "weight_basis": "user_preference"
+}

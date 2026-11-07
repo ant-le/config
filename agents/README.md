@@ -10,6 +10,50 @@ settings. Never publish Claude account state, OAuth tokens or Codex auth files.
 and Neovim hooks have been removed. Select it with `OPENCODE_CONFIG_DIR` as
 described in the [root README](../README.md). `t3/` is ignored Mac-specific state.
 
+## Local council and improvement skills
+
+[`model-council`](skills/model-council/SKILL.md) supplies the reusable four-family
+team and orchestration contract. [`improve`](skills/improve/SKILL.md) supplies
+metrics and bounded iteration, with `coordinator-build`, `build-and-review`, and
+`build-only` modes. `model-council` works independently; install it alongside
+`improve` when using the improvement workflow. Their
+[single expert council configuration](skills/model-council/profiles/default.json) holds exact
+models, high reasoning settings and reviewer weights independently of either workflow.
+Astra and Opus each have 30% rating weight, Muse Wonder 25%, and Gemini 15%.
+This preserves the existing seats’ relative user-preference weights while assigning
+Muse Wonder an equal-seat share.
+Explicit run-only overrides leave saved defaults unchanged. Evidence and hard
+constraints are not weighted votes. `improve` asks for human calibration only when
+objectives, subjective criteria or consequential tradeoffs need clarification.
+
+The `improve` coordinator produces interactive checkpoint reports in the T3 thread
+from a bundled [template](skills/improve/assets/report-template.html): a one-line
+verdict with outcome bullets, a headline comparison with a labeled progress plot,
+and an original-to-final change overview whose headings expand. Reviewer
+discussion stays in supporting evidence. Comparable numeric results get progress
+charts; qualitative results stay categorical. Reports
+are checkpoint snapshots, with a Markdown fallback when rendering is unavailable.
+Standalone `model-council` returns assessments and synthesis without this reporting workflow.
+See the [reporting contract](skills/improve/references/checkpoint-reports.md).
+
+Examples in T3's composer:
+
+```text
+$model-council Compare these architecture options using the default council.
+$improve Improve this page's visual hierarchy; use coordinator-build mode.
+$improve Shorten this prompt without losing required fields; build-and-review with alternatives.
+```
+
+Use native local skill links to this source, following the existing Obsidian
+skill convention. Codex uses `~/.agents/skills`, Claude `~/.claude/skills`, and
+Antigravity `~/.gemini/config/skills`. Restart an idle T3 agent session to refresh
+discovery. These are skill files and a profile interpreted by the coordinator,
+not a new T3 settings schema or background service. See the
+[authoring and model rationale](skills/model-council/references/authoring-basis.md).
+
+The Hetzner installer below still manages only `obsidian-markdown`; it does not
+deploy these new skills. Do not run `agents:apply` to install them locally.
+
 ## Hetzner operator workflow
 
 Status: installer prepared and locally validated on 2026-11-01; **not applied or
