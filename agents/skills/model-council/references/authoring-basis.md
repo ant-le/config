@@ -1,19 +1,21 @@
 # Expert council configuration and authoring basis
 
-Updated 2026-11-07. This is a maintained rationale, not instructions to repeat research on every invocation. Exact model availability and option keys come from T3's runtime capabilities; official API defaults need not equal harness defaults.
+Updated 2026-11-19. This is a maintained rationale, not instructions to repeat research on every invocation. Exact model availability and option keys come from T3's runtime capabilities; official API defaults need not equal harness defaults.
 
 ## Single expert council
 
-The [configuration](../profiles/default.json) is version 3, named `expert`; the existing filename remains the default entrypoint. It replaces the initial lower-effort configuration. There is no separate everyday or budget council.
+The [configuration](../profiles/default.json) is version 4, named `expert`; the existing filename remains the default entrypoint. It replaces the initial lower-effort configuration. There is no separate everyday or budget council.
 
 | Family | T3 provider | Model | Explicit T3 option | Review weight |
 | --- | --- | --- | --- | --- |
-| Google | `antigravity` | `gemini-4-argon` | `thinking_level: high` | 0.15 |
+| Google | `antigravity` | `gemini-4-neon` | `thinking_level: high` | 0.15 |
 | Anthropic | `claudeAgent` | `claude-opus-5-5` | `effort: high` | 0.30 |
 | OpenAI | `codex` | `gpt-6-astra` | `reasoningEffort: high` | 0.30 |
 | Muse | `muse` | `muse-wonder-1.0` | `reasoningEffort: high` | 0.25 |
 
 These choices implement the user's preference for one consistently capable council and greater rating influence for Astra and Opus. Version 3 adds Muse Wonder at the user's request with explicit high reasoning. The requested reweighting assigns the new seat an equal-seat share of 25% and proportionally scales the existing 20:40:40 distribution to 15:30:30, preserving its relative preferences. This allocation is a coordinator choice under the user's reweighting request, not an explicit numeric mapping supplied by the user. Muse's exact model ID and high reasoning option were confirmed in T3's live capability response; the existing seats retain their previously confirmed targets/options. High effort is an explicit configuration choice, not evidence of optimality; similarly named settings do not imply equal compute. The weights are user preferences, not measured accuracy or calibrated probabilities.
+
+Version 4 replaces Gemini Argon with Gemini Neon at the user’s request. T3’s live catalog confirms `gemini-4-neon` with `thinking_level: high`; the other targets, settings and weights are unchanged. This is a saved preference change, not a measured quality claim.
 
 Use the configuration unchanged unless the user requests or approves an override. Run-only overrides do not change this file. A persisted model, setting or weight change increments the configuration version; a replacement model does not inherit a claim of measured reliability. Provider instance IDs are installation-specific: resolve capabilities on the actual machine and report unavailable choices rather than silently substituting. Leave unrelated service-tier/fast-mode options to existing configuration and record effective values when available.
 
@@ -33,7 +35,7 @@ T3's public repository documentation describes provider-native skills rather tha
 
 Claude reads its configured skills directory and project `.claude/skills`. Antigravity reads project `.agents/skills` (with documented precedence for other locations), and global `~/.gemini/config/skills` or `~/.gemini/antigravity-cli/skills`; it does not read global `~/.agents/skills`. Native formats and actual provider configuration govern discovery. [Claude integration](https://github.com/pingdotgg/t3code/blob/main/docs/user/providers-claude.md#skills), [Antigravity integration](https://github.com/pingdotgg/t3code/blob/main/docs/user/providers-antigravity.md#skills-and-attachments)
 
-This repository keeps source under `agents/skills/`. Local discovery links follow the existing convention: Codex through `~/.agents/skills`, Claude through `~/.claude/skills`, Antigravity through `~/.gemini/config/skills`. `model-council` can be installed alone; `improve` requires it. Do not modify generated T3-managed mirrors or account state. Remote Hetzner application is a separate operation; its current installer only manages the existing Obsidian skill.
+This repository keeps source under `agents/skills/`. Local discovery links follow the existing convention: Codex through `~/.agents/skills`, Claude through `~/.claude/skills`, Antigravity through `~/.gemini/config/skills`. `model-council` can be installed alone; `improve` requires it. Do not modify generated T3-managed mirrors or account state. Remote Hetzner application is a separate operation; follow the [native configuration workflow](../../../README.md#native-coding-host-workflow).
 
 ## Evaluation research
 

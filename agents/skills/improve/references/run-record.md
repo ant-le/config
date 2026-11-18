@@ -6,6 +6,11 @@ The `improve` coordinator keeps one compact structured record in the thread, alo
 
 Use these fields as a common vocabulary. Omit what does not apply.
 
+For a single qualitative candidate, record the required facts compactly in the
+thread; a serialized object or separate file is unnecessary. Reference durable
+briefs, reviews and check results instead of duplicating them in each checkpoint.
+Retain only decision-relevant state when resuming, with links to the full evidence.
+
 Always:
 
 - `run_id`, `objective`, `checkpoint_id`, and `run_status` (`running`, `complete`, `incomplete`, or `stopped`).

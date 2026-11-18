@@ -3,7 +3,7 @@
 `AGENTS.md`, `skills/`, and `mcp.json` are the portable source. The Mac's
 existing native symlinks continue to use this checkout. Its Codex TOML currently
 matches `mcp.json`; Claude's matching definitions live in ignored account state.
-The Hetzner task deliberately does not rewrite Mac symlinks or account state.
+Native configuration setup keeps each host's account state separate.
 `claude/settings.json` contains the selected shared theme/instruction discovery
 settings. Never publish Claude account state, OAuth tokens or Codex auth files.
 `opencode/` contains only optional native configuration; custom plugins, commands,
@@ -12,12 +12,12 @@ described in the [root README](../README.md). `t3/` is ignored Mac-specific stat
 
 ## Local T3 release review
 
-[`t3-release-review`](skills/t3-release-review/SKILL.md) replaces the hourly release
-automation with an on-demand review of Hetzner relevance, provider consistency,
+[`t3-release-review`](skills/t3-release-review/SKILL.md) provides an on-demand
+review of Hetzner relevance, provider consistency,
 and features worth trying. Invoke `$t3-release-review` locally; it reuses the
 existing untracked review ledger and does not install or deploy updates.
-Native local skill links follow the same convention described below. This skill
-is not installed on Hetzner by `agents:apply`.
+Native local skill links follow the convention below. This Mac-local skill is
+not installed on coding.
 
 ## Local council and improvement skills
 
@@ -35,7 +35,7 @@ Explicit run-only overrides leave saved defaults unchanged. Evidence and hard
 constraints are not weighted votes. `improve` asks for human calibration only when
 objectives, subjective criteria or consequential tradeoffs need clarification.
 
-The `improve` coordinator produces interactive checkpoint reports in the T3 thread
+For comparative measurements or requested visuals, the `improve` coordinator produces interactive checkpoint reports in the T3 thread
 from a bundled [template](skills/improve/assets/report-template.html): a one-line
 verdict with outcome bullets, a headline comparison with a labeled progress plot,
 and an original-to-final change overview whose headings expand. Reviewer
@@ -44,6 +44,15 @@ charts; qualitative results stay categorical. Reports
 are checkpoint snapshots, with a Markdown fallback when rendering is unavailable.
 Standalone `model-council` returns assessments and synthesis without this reporting workflow.
 See the [reporting contract](skills/improve/references/checkpoint-reports.md).
+Simple qualitative rounds use a concise text checkpoint rather than a mandatory
+interactive report.
+
+[`development-retrospective`](skills/development-retrospective/SKILL.md) diagnoses
+slow or frustrating development from actual thread, diff, review and timing
+evidence. It proposes or applies bounded workflow changes within the user's scope,
+and refreshes official provider guidance when model changes matter. It does not
+automatically launch a council, run extra suites or schedule monitoring. Existing
+model settings, reviewer choices and correctness requirements remain explicit.
 
 Examples in T3's composer:
 
@@ -51,6 +60,8 @@ Examples in T3's composer:
 $model-council Compare these architecture options using the default council.
 $improve Improve this page's visual hierarchy; use coordinator-build mode.
 $improve Shorten this prompt without losing required fields; build-and-review with alternatives.
+$development-retrospective Investigate this slow thread and improve the development workflow.
+$development-retrospective Reassess our workflow for a new model; research and propose changes only.
 ```
 
 Use native local skill links to this source, following the existing Obsidian
@@ -76,114 +87,132 @@ Project instructions and skills still require a trusted workspace. See Muse's
 The root `muse/` directory stays ignored, including credentials, trust records,
 settings, locks and this machine's instruction symlink.
 
-The Hetzner installer below still manages only `obsidian-markdown`; it does not
-deploy these new skills. Do not run `agents:apply` to install them locally.
+## Native coding host workflow
 
-## Hetzner operator workflow
+The Hetzner host now runs native T3 as `t3`, outside Kubernetes. The server
+checkout is **`/srv/projects/config`**, using a read-only repo deploy key and a
+sparse checkout of portable agent files. Do not clone over the server's ~/.config
+or copy Mac credentials, OAuth stores, trust records or service state.
 
-Status: installer prepared and locally validated on 2026-11-01; **not applied or
-accepted live**. Use the reviewed published Git revision for server maintenance.
-Read-only inspection found the deployed skill service, existing provider credential
-files, and no user instruction/config files except Claude's regular state file.
-A subsequent read-only server check confirmed both provider login-status commands
-exit successfully. MCP OAuth and fresh-session acceptance remain pending.
+Use the native checklist below for initial setup and explicit Git sync for
+routine updates. No custom configuration writer is maintained.
+The [server runtime documentation](https://github.com/ant-le/server/blob/main/docs/t3code.md)
+records deployed infrastructure evidence; source, publication and live acceptance
+are separate stages.
 
-The existing `~/.config` contains Git/GitHub/Anthropic machine state. Use
-`/home/t3/projects/config` instead. Read-only server verification confirmed that existing Git credentials can access
-this repository; no additional credentials are needed. Do not copy the Mac's
-GitHub login, SSH keys, OAuth stores, or `.zshrc`.
+### Current snapshot and first reconciliation
 
-After separately approving server maintenance, run as the T3 user outside the
-provider command sandbox. First clone `https://github.com/ant-le/config.git`
-with `--no-checkout` into `/home/t3/projects/config`, set a **non-cone sparse
-checkout** selecting only `/mise.toml`, `/agents/AGENTS.md`, `/agents/mcp.json`,
-`/agents/README.md`, `/agents/scripts/`, `/agents/skills/`, and
-`/agents/claude/settings.json`, then check out the reviewed published revision.
-Do not clone over an existing directory. Review the selected Git diff before
-trusting or executing a new task revision. Keep provider sessions idle while
-merging Claude state, which the provider can also write.
+At the November 19 review, the server checkout was main@4cacae2 with copied,
+unpublished portable changes and an untracked development-retrospective skill.
+The Mac also has unpublished portable edits. The installed snapshot is therefore
+not reproducible from a published commit yet. Preserve both worktrees.
 
-Routine approved maintenance:
+Keep affected provider sessions idle for this first reconciliation: stashing
+untracked linked skill files temporarily removes their content.
+
+1. Review and publish the intended portable files from the Mac, including full
+   skill bundles. Preserve unrelated Neovim/desktop edits and existing model and
+   reviewer choices.
+2. Fetch origin on coding. Compare its dirty tracked files and untracked skill
+   files with the published revision, byte for byte where needed. Stop on any
+   unresolved difference; never force-reset or clean the worktree.
+3. Preserve the bootstrap snapshot with a specifically named `git stash push -u`,
+   fast-forward to the verified revision, then verify every intended file remains.
+   Do not pop an identical old snapshot over the published tree. Drop only that
+   specific stash after proving it is redundant; otherwise retain it.
+4. Confirm clean Git status and record the installed commit before routine sync.
+
+### Routine configuration sync
+
+Run as `t3`, with affected provider sessions idle:
+
+First fetch and inspect the proposed revision; this block stops on a dirty tree:
 
 ```sh
-git -C /home/t3/projects/config pull --ff-only
-mise -C /home/t3/projects/config run agents:apply -- --check
-mise -C /home/t3/projects/config run agents:apply
+(
+  set -eu
+  cd /srv/projects/config
+  test -z "$(git status --porcelain=v1 --untracked-files=all)" || {
+    echo 'Stop: config checkout has local changes' >&2; exit 1;
+  }
+  git fetch origin
+  git log --oneline HEAD..origin/main -- agents
+  git diff HEAD..origin/main -- agents
+  git rev-parse origin/main
+)
 ```
 
-The current image has Python 3.11+ but **no mise**. Until mise is included through
-an approved image release, use the exact task body without installing a runtime
-on the PVC:
+After reviewing the diff, use its exact printed commit below. Run this in each
+clean checkout being updated; on the Mac use its config-repository directory.
+Do not replace the target with a branch that may move after review.
 
 ```sh
-python3 /home/t3/projects/config/agents/scripts/apply.py --check
-python3 /home/t3/projects/config/agents/scripts/apply.py
+(
+  set -eu
+  cd /srv/projects/config
+  reviewed_commit=REPLACE_WITH_REVIEWED_COMMIT
+  reviewed_commit="$(git rev-parse --verify "$reviewed_commit^{commit}")"
+  test -z "$(git status --porcelain=v1 --untracked-files=all)" || {
+    echo 'Stop: config checkout has local changes' >&2; exit 1;
+  }
+  git merge --ff-only "$reviewed_commit"
+  test "$(git rev-parse HEAD)" = "$reviewed_commit"
+  test -z "$(git status --porcelain=v1 --untracked-files=all)"
+)
 ```
 
-`--check`/`--dry-run` returns 0 when current, 1 for differences, 2 for errors.
-It reads the service through its normal MCP interface (which acquires its normal
-store lock) but does not save skills or write provider configuration. It checks
-canonical skill content; it does not attest the generated mirrors or native
-provider discovery. Applying retries the service save to repair mirrors.
+Review scripts/assets before the merge activates their linked content. Existing
+links follow the checkout automatically; no installer/apply step is needed for
+routine skill edits. Add links explicitly for a newly selected skill and start
+fresh idle agent sessions to verify discovery. No background pull, live rsync or
+shared writable home directory is configured.
 
-## Merge and conflict rules
+### Native setup checklist
 
-- A marked shared block is inserted into each provider's user instruction file.
-  Text outside the block stays intact, including machine guidance. No absolute
-  Mac import path is installed. Image-owned sandbox rules remain authoritative.
-- Only missing Context7/Tavily URL definitions are added. Matching definitions
-  are retained; conflicting definitions fail rather than replacing credentials,
-  headers, custom options or unrelated MCP servers. Codex TOML is extended without
-  reserializing other settings. Claude state stays a regular, singly linked file.
-- Selected Claude settings merge recursively; conflicting values fail.
-- `obsidian-markdown` is saved through the deployed `t3-skills` stdio MCP API.
-  Reference Markdown is included in the instruction text with local anchor links;
-  one inline exclamation-mark example is reworded to avoid the service's dynamic
-  command sentinel. Both providers receive `t3-user-obsidian-markdown`. No generic
-  copy or symlink touches generated files or authoritative records.
-- `.local/state/agents-apply.json` records the last installed revision. Independent
-  skill edits cause a conflict on the next source update. Reconcile those edits
-  into Git deliberately; do not delete the record to force an overwrite.
-- Symlinks/hard links, malformed config and changed files fail closed. Existing
-  credentials, account fields, unrelated registrations, and T3 settings remain.
-  Writes are atomic per file, not transactional across files: after a partial
-  failure, inspect the reported path and retry. No automatic rollback of account
-  state is attempted. Use an approved private backup before initial maintenance.
+- Link the shared personal instructions and selected complete skill directories
+  into each provider's effective native config home. Codex/Muse use ~/.agents/skills,
+  Claude uses ~/.claude/skills and Antigravity uses ~/.gemini/config/skills.
+  Existing links on coding point into this checkout. Preserve unrelated files.
+- T3 can create isolated instance profiles. Its Antigravity profile links skills,
+  but the normal terminal GEMINI.md and MCP registrations did not follow it.
+  Verify the actual instruction/config home for each managed instance; do not
+  assume a terminal login/configuration is also the T3 instance's configuration.
+- Register the definitions in [mcp.json](mcp.json) using each provider's native MCP
+  commands/configuration. Preserve unrelated servers and OAuth/account fields.
+  Translate Antigravity remote URLs to `serverUrl`; other providers use `url`.
+  The T3 ACP instance's config/mcp_config.json needs its own definitions. Setting
+  GEMINI_HOME on `agy mcp add` did not target that profile in the inspected build.
+  Do not link the entire terminal settings/auth store into the instance.
+- Link shared instructions into the effective native personal-instruction file.
+  The inspected T3 Antigravity profile had no GEMINI.md; verify it loads in a real
+  session after setup. Do not copy provider OAuth credentials between homes.
+- Check that skills can read bundled scripts/assets under the provider's actual
+  sandbox. Broad ~/.claude denials currently need verification; skill symlinks
+  alone are not acceptance. Preserve credential exclusions while fixing skill
+  paths. Full access follows the selected native provider mode, not a promised
+  all-provider credential boundary.
+- Authenticate MCP integrations separately per host/provider. Verify one real
+  Context7 query and Tavily search where intended. URL registrations and health
+  listings alone do not prove authenticated tool calls.
 
-## Authentication and acceptance
+Keep machine-specific paths in host setup rather than portable skill text. Agent
+CLI installation uses vendor-native tooling for all four providers, with T3
+controlling execution; mise remains available for
+project runtimes, environment and tasks. The revised server plan removes the Auto
+ceiling and launch locks; do not describe the currently capped host as migrated
+until that policy and provider setup have actually changed.
 
-After applying, authenticate Context7 and Tavily independently for **both**
-providers using their supported OAuth/browser login in the Hetzner environment.
-Do not export API keys or paste authorization URLs/tokens into transcripts.
-Do not reauthenticate the provider accounts merely because MCP login is needed.
-Use a private terminal/browser flow; remote OAuth callback handling must be
-verified against the installed CLI, not assumed to work from a Mac callback.
+### Drift checks and validation
 
-Restart only idle agent sessions, without restarting the Pod. In fresh Hetzner
-Codex and Claude sessions verify:
+The smallest useful check verifies a clean published source revision, native
+links resolving into the checkout, and expected MCP names in each real instance.
+Use native provider inspection and actual skill/MCP calls before adding a checker
+or configuration writer. Registration is separate from authentication.
 
-1. The shared personal preferences are loaded alongside the server policies.
-2. `$t3-user-obsidian-markdown` is discovered and invoked, including a reference
-   example; existing `t3-skills` tools still work.
-3. An actual Context7 documentation query and Tavily search succeed in each
-   provider. Health checks or listed registrations alone do not prove tool use.
-4. Re-running the check reports no differences. Record any provider-side config
-   additions that need deliberate reconciliation rather than weakening checks.
+`mise run check:config` validates publishable JSON/TOML. The full
+`mise run check` also loads Neovim/tmux and checks whitespace. These checks do
+not establish native provider acceptance, publish or deploy configuration.
 
-The existing skill service passed live acceptance through
-[server PR #23](https://github.com/ant-le/server/pull/23#issuecomment-6559707199).
-That evidence does not verify this new configuration or these OAuth connections.
-
-## Local verification and publication scope
-
-Run `mise run agents:test` (or its Python body). To also exercise the image-owned
-skill service against disposable homes, set `T3_SKILLS_SOURCE` to the local
-`container-images/t3code/skills_mcp.py` when running the tests. No real credentials
-are read by the tests. Run `mise run check` for the full repository checks;
-the obsolete Makefile has been removed.
-
-Review the complete diff and untracked file list before publication. Shared agent
-source, the minimal OpenCode configuration, root mise tasks, and desktop
-configuration belong in Git. Private Claude/Codex account files, `agents/t3/`,
-root `mise/`, and k3d runtime state are ignored. Do not force-add ignored files.
-The Mac-specific `claude/CLAUDE.md` stays excluded from the Hetzner sparse checkout.
+Before publication, inspect the full diff and untracked file list. Keep private
+Claude/Codex state, ignored agent/T3/mise directories and credentials out of Git.
+Publish intended portable changes explicitly, preserving unrelated work.

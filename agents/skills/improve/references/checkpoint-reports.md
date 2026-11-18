@@ -1,6 +1,16 @@
-# Interactive checkpoint reports
+# Proportional checkpoint reports
 
-The `improve` coordinator renders one self-contained report in the T3 thread after each completed improvement round and at final handoff. The report is the whole answer: outcome, evidence, caveats, dissent and next step all live in the page, so the chat reply stays minimal. Combine build, council review and the improvement decision into one round report. Reporting belongs to `improve`; the reusable `model-council` skill supplies its normal results and has no dependency on this format. Reuse an unchanged final checkpoint. At an early stop, show the partial state with missing seats clearly identified. Honor requests for text-only output.
+Choose the smallest report that communicates the decision and its evidence. For a
+simple qualitative round, use a short text checkpoint: outcome, meaningful changes,
+checks, material dissent/gaps and next action if any. Do not generate HTML merely
+to restate a small edit. For comparable numeric results, multi-round exploration or
+a user-requested visual, use the interactive format below when useful, honoring
+the active environment's visualization rules. Avoid reporting the same evidence in
+multiple formats. The compact and interactive formats use the same integrity rules.
+
+## Interactive format
+
+When using the interactive format, the `improve` coordinator renders one self-contained report in the T3 thread after each completed improvement round and at final handoff. Outcome, evidence, caveats, dissent and next step live in the page, so the accompanying reply can stay concise while satisfying the environment's final-answer requirements. Combine build, council review and the improvement decision into one round report. Reporting belongs to `improve`; the reusable `model-council` skill supplies its normal results and has no dependency on this format. Reuse an unchanged final checkpoint. At an early stop, show the partial state with missing seats clearly identified. Honor requests for text-only output.
 
 Reports are snapshots generated from the [run record](run-record.md), updated from actual delegate returns and coordinator actions. Do not poll delegates, start a server, or add a background service for reporting. Reviewers return their normal contracts, not HTML.
 
@@ -48,7 +58,9 @@ Reviewer-by-round commentary, full rating tables, budget bookkeeping and raw rec
 
 ## Chat reply
 
-The page carries the summary. After rendering, reply with only what the page cannot do: a question that needs the user's decision, or a failure to render. Otherwise reply with nothing beyond the rendered page, and never restate it. Preserve returned thread links verbatim where they are needed.
+The page carries the detailed comparison. Keep the accompanying reply concise and
+follow the active environment's final-answer requirements; avoid duplicating the
+chart or full report. Preserve returned thread links verbatim where they are needed.
 
 ## Render in T3
 

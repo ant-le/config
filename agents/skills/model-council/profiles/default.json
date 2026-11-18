@@ -1,14 +1,14 @@
 {
   "name": "expert",
-  "version": 3,
-  "selected_on": "2026-11-07",
+  "version": 4,
+  "selected_on": "2026-11-19",
   "description": "Single expert council; fixed high reasoning settings and user-preference review weights. No automatic model, effort or weight changes.",
   "seats": [
     {
       "family": "google",
       "target": {
         "providerInstanceId": "antigravity",
-        "model": "gemini-4-argon",
+        "model": "gemini-4-neon",
         "options": {
           "thinking_level": "high"
         }

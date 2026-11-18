@@ -1,0 +1,4 @@
+interface:
+  display_name: "Development Retrospective"
+  short_description: "Diagnose and improve agent development workflows"
+  default_prompt: "Use $development-retrospective to investigate this development workflow and propose or apply evidence-based improvements within my requested scope."

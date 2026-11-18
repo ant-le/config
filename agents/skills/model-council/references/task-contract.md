@@ -1,5 +1,27 @@
 # Council task contract
 
+## Choose the return format
+
+Standalone reviews default to concise prose: a verdict, prioritized findings with evidence, disagreements and limitations, including what the reviewer inspected or could not access. Identify the exact reviewed target in the brief; JSON, ratings and a comparison baseline are not required. Planning and building use the stage-specific deliverables below.
+
+Use the structured review format when the user or calling workflow needs ratings or machine-readable comparisons. `improve` uses this format for council reviews. The JSON schemas, field validation and aggregation requirements below apply to structured reviews, not ordinary prose feedback. Exact targets, read-only review boundaries and honest evidence coverage apply to both formats.
+
+## Compact prose returns
+
+For an ordinary review, aim for 200–400 words: verdict and reviewed target,
+prioritized actionable findings with evidence, and material coverage gaps. A clean
+review can be shorter. Expand when consequential findings require it; never omit
+a defect to meet the length target. Separate required corrections from optional
+preferences and distinguish introduced defects from pre-existing issues.
+
+Confirm source identity once in a short line; retain detailed manifests and long
+supporting evidence by accessible reference. Avoid restating the brief, listing
+every unchanged invariant, narrating tool calls or duplicating the same findings
+in prose and JSON. Structured reviews keep their required fields but use concise
+values; the full return should be retrieved only once unless it changes or was
+actually inaccessible. The coordinator synthesizes actionable differences and
+dissent rather than copying all seat responses back into the conversation.
+
 ## Brief
 
 Use a compact self-contained brief with these fields, omitting irrelevant detail:
@@ -21,19 +43,19 @@ Review instructions: independently assess only the supplied target, distinguish 
 
 For long evidence, put constraints first, clearly delimit material, then restate the requested output briefly at the end. Examples are useful when the intended output is ambiguous, not mandatory prompt padding. Adapt syntax to the provider only when needed; keep substantive requirements identical.
 
-For review, deliver both the return shape and all allowed values below, including the `uncertainty` enum. A list of field names alone is insufficient. Inline the relevant contract or supply an immutable accessible copy with an explicit instruction to read it. Before launch, check that a reviewer with only this brief can determine the field types, permitted values, exact target and requested evidence. If the coordinator omitted a requirement, record a brief defect; do not attribute the omission to the reviewer or silently invent compliant values afterward.
+For structured review, deliver both the return shape and all allowed values below, including the `uncertainty` enum. A list of field names alone is insufficient. Inline the relevant contract or supply an immutable accessible copy with an explicit instruction to read it. Before launch, check that a reviewer with only this brief can determine the field types, permitted values, exact target and requested evidence. If the coordinator omitted a requirement, record a brief defect; do not attribute the omission to the reviewer or silently invent compliant values afterward.
 
 ## Identity and evidence
 
-- Assign a unique run ID. Derive `target_id` from run, round and a digest/SHA of the reviewed content. It can identify a frozen requirements document for a planning stage.
-- Increment `brief_version` when shared criteria, instructions or evidence change; mixed versions are not one checkpoint. Record neutral comparison-label mappings separately. Vary A/B presentation order where practical without changing substance; randomization alone does not remove bias.
+- For structured work, assign a unique run ID and derive `target_id` from run, round and a digest/SHA of the reviewed content. It can identify a frozen requirements document for a planning stage. A pinned target reference is sufficient for standalone prose feedback.
+- For structured work, increment `brief_version` when shared criteria, instructions or evidence change; mixed versions are not one checkpoint. Record neutral comparison-label mappings separately. Vary A/B presentation order where practical without changing substance; randomization alone does not remove bias.
 - Pin exact text, a commit, or base revision plus frozen patch and relevant untracked files. Include binary changes when needed. A branch name/live URL alone is insufficient.
 - Evidence IDs identify actual retrievable content, including viewport/state for images, command and result for checks, and model/settings for runs. Hashes identify content; they do not preserve it.
-- Prefer existing durable artifacts. If none exist, create a run-specific directory in the project's artifact location or local application-data storage outside the repository. Include absolute paths and machine identity in the manifest. Do not assume paths are accessible across providers or machines. Copy/attach only the task evidence needed through supported mechanisms.
-- Stage evidence where every seat's tools can read it, not only the coordinator's. Provider sandboxes often limit reads to the workspace and host application data, so prefer a git-ignored folder inside the shared workspace over OS temp, application data or a coordinator-private scratchpad. Before launch, confirm that each seat's provider can open the staged paths, images included; some providers cannot display images at all. Otherwise attach the content through a supported mechanism, or record the gap in the brief and have the affected seat mark image-dependent criteria unknown. A seat that cannot open essential evidence gives limited coverage for that criterion, not an endorsement.
+- Reuse durable evidence where every reviewer's tools can access it. Otherwise stage only the necessary evidence in a run-specific, git-ignored workspace directory. Use external storage when reviewer access is confirmed. Include absolute paths and machine identity in the manifest; do not assume paths are accessible across providers or machines.
+- Confirm that each seat's provider can open staged evidence, images included; some providers cannot display images at all. Otherwise attach the content through a supported mechanism, or record the access gap in the brief and have the affected seat mark image-dependent criteria unknown. A seat that cannot open essential evidence gives limited coverage for that criterion, not an endorsement.
 - Reviewers list what they inspected and could not access. Seeing source is not seeing a rendered UI. Do not mutate the target/evidence during review. Retain evidence through handoff and disclose any temporary retention limits.
 
-## Review return
+## Structured review return
 
 Return one JSON object; concise prose may accompany it. The coordinator records actual provider/model/settings from execution metadata rather than trusting a model's self-identification.
 
@@ -99,7 +121,7 @@ For standalone use, present the stage result to the user. For a calling workflow
 
 Include `resolved_configuration` and applicable `rating_aggregates` as defined by the [weighting rules](weighting.md). Reviewer return objects remain raw and unweighted; the coordinator computes aggregates. Criterion importance comes from the brief and must not be confused with reviewer weights. Do not require numeric aggregates for qualitative, planning or build-only results.
 
-Check matching IDs, required fields, evidence accessibility and numeric scale bounds. An invalid/missing object is incomplete, not approval. If repair requires another delegate review, create a fresh task within budget. No custom parser is required initially.
+For prose reviews, check that the response covers the requested target and provides the requested verdict, findings, evidence and limitations; do not require JSON. For structured reviews, check matching IDs, required fields, evidence accessibility and numeric scale bounds. An invalid/missing required object is incomplete, not approval. If repair requires another delegate review, create a fresh task within budget. No custom parser is required initially.
 
 Track execution completion, contract validation and evidence coverage separately. Preserve the raw return and record any lossless formatting normalization (for example a single evidence string wrapped in an array). Do not invent missing IDs, enum values, ratings or evidence to make a response validate. Nonconforming fields may be quoted as attributed observations with their limitations, but are not validated inputs to an aggregate or an unqualified council-completion claim. If a fresh repair is not warranted or the budget is exhausted, report the contract limitation explicitly.
 

@@ -31,14 +31,13 @@ With mise, Neovim (including its installed plugins), and tmux available:
 mise run check
 ```
 
-This parses publishable JSON/TOML, tests the agent installer in disposable homes,
-loads Neovim, loads tmux in an isolated server, and checks diff whitespace.
-`mise run agents:test` runs just the portable installer tests. The optional
-image-service integration check is described in [agents/README.md](agents/README.md).
+This parses publishable JSON/TOML, loads Neovim/tmux, and checks diff whitespace.
+Native T3 setup and authenticated MCP calls use the separate
+[native configuration checklist](agents/README.md#native-setup-checklist).
 
 ## Hetzner
 
-Use `/home/t3/projects/config` as the server checkout. See the
-[operator workflow](agents/README.md#hetzner-operator-workflow) for sparse checkout,
-preview/apply commands, and OAuth acceptance. Publication and server application
-are separate steps; local checks do not establish live server acceptance.
+Use `/srv/projects/config` as the native coding-host checkout. See the
+[native workflow](agents/README.md#native-coding-host-workflow) for the initial
+reconciliation, explicit Git sync, native links and MCP acceptance. Publication
+and server application are separate; local checks do not establish live acceptance.

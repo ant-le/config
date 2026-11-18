@@ -19,6 +19,7 @@ Use T3 and the provider's built-in workflows where they already meet the task. K
 
 - Focus tests on important behavior, meaningful regressions, critical paths, and consequential edge cases. Choose the smallest useful verification for the risk and scope of the change.
 - Not every feature or low-impact edit needs new tests. Avoid tests that merely mirror implementation, duplicate existing coverage, or inflate coverage percentages.
+- When a new test is warranted, inspect a nearby test for the same behavior and reuse existing fixtures, providers and interaction patterns. Assert the meaningful outcome; avoid ambiguous text queries or new scaffolding that duplicates the existing harness.
 - Do not create a fleet of testing or review agents for routine work. Run relevant existing checks and required repository/CI gates; broaden testing when risk, failures, or unresolved concerns justify it.
 - Report what was verified and any material gaps. Never claim checks passed unless they ran successfully.
 
@@ -26,3 +27,10 @@ Use T3 and the provider's built-in workflows where they already meet the task. K
 
 - Use Context7 when current or version-specific library/API documentation would help; prefer the installed project's relevant version and primary sources.
 - Tavily is an additional web-search and extraction option, not a mandatory replacement for built-in search. Choose the tool that fits the question; do not repeat searches across tools without a reason.
+
+## Development workflow
+
+- Define a coherent outcome and its acceptance criteria before choosing review checkpoints. Small implementation steps or commits do not each need a council; honor the user's requested review configuration.
+- Keep context useful: search and read relevant ranges, filter large tool responses, summarize passing checks with evidence references, and reuse unchanged evidence. Expand reads when correctness requires surrounding context. Keep one compact continuation record for long work rather than repeatedly copying its history.
+- Resolve recurring terminology and behavior in the project's canonical documentation and existing shared helpers. Before adding recurring UI copy, find its existing semantic key and verify the action's behavior; reuse matching meanings rather than inventing local synonyms. Put only durable routing and operating rules in AGENTS.md; keep detailed procedures in skills.
+- Use `development-retrospective` when asked to diagnose or improve the development process or reassess it after model changes. Apply authorized, reversible improvements, then evaluate real outcomes; preserve explicit research-only requests. Do not create recurring jobs or change model/reviewer settings implicitly.
