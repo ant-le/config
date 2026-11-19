@@ -4,18 +4,20 @@ Updated 2026-11-19. This is a maintained rationale, not instructions to repeat r
 
 ## Single expert council
 
-The [configuration](../profiles/default.json) is version 4, named `expert`; the existing filename remains the default entrypoint. It replaces the initial lower-effort configuration. There is no separate everyday or budget council.
+The [configuration](../profiles/default.json) is version 5, named `expert`; the existing filename remains the default entrypoint. It replaces the initial lower-effort configuration. There is no separate everyday or budget council.
 
 | Family | T3 provider | Model | Explicit T3 option | Review weight |
 | --- | --- | --- | --- | --- |
-| Google | `antigravity` | `gemini-4-neon` | `thinking_level: high` | 0.15 |
+| Google | `antigravity` | `gemini-4-neon` | `thought_level: high` | 0.15 |
 | Anthropic | `claudeAgent` | `claude-opus-5-5` | `effort: high` | 0.30 |
 | OpenAI | `codex` | `gpt-6-astra` | `reasoningEffort: high` | 0.30 |
 | Muse | `muse` | `muse-wonder-1.0` | `reasoningEffort: high` | 0.25 |
 
 These choices implement the user's preference for one consistently capable council and greater rating influence for Astra and Opus. Version 3 adds Muse Wonder at the user's request with explicit high reasoning. The requested reweighting assigns the new seat an equal-seat share of 25% and proportionally scales the existing 20:40:40 distribution to 15:30:30, preserving its relative preferences. This allocation is a coordinator choice under the user's reweighting request, not an explicit numeric mapping supplied by the user. Muse's exact model ID and high reasoning option were confirmed in T3's live capability response; the existing seats retain their previously confirmed targets/options. High effort is an explicit configuration choice, not evidence of optimality; similarly named settings do not imply equal compute. The weights are user preferences, not measured accuracy or calibrated probabilities.
 
-Version 4 replaces Gemini Argon with Gemini Neon at the user’s request. T3’s live catalog confirms `gemini-4-neon` with `thinking_level: high`; the other targets, settings and weights are unchanged. This is a saved preference change, not a measured quality claim.
+Version 4 replaces Gemini Argon with Gemini Neon at the user’s request. T3’s live catalog confirms `gemini-4-neon` with `thought_level: high`; the other targets, settings and weights are unchanged. This is a saved preference change, not a measured quality claim.
+
+Version 5 aligns the Gemini option ID with the current T3 catalog: `thought_level`. The selected high level, models and weights are unchanged.
 
 Use the configuration unchanged unless the user requests or approves an override. Run-only overrides do not change this file. A persisted model, setting or weight change increments the configuration version; a replacement model does not inherit a claim of measured reliability. Provider instance IDs are installation-specific: resolve capabilities on the actual machine and report unavailable choices rather than silently substituting. Leave unrelated service-tier/fast-mode options to existing configuration and record effective values when available.
 
