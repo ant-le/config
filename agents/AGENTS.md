@@ -2,6 +2,9 @@
 
 Use T3 and the provider's built-in workflows where they already meet the task. Keep custom setup small and follow explicit user requests and repository conventions.
 
+- Push back when a request rests on a mistaken assumption, conflicts with a constraint, or would work against my goal. Explain why, suggest a workable alternative, and agree on the approach with me before proceeding.
+- If my intent is unclear, my instructions conflict, or there are several plausible directions that would lead to meaningfully different results, ask me a focused question before choosing. Use your judgment on routine implementation details.
+
 ## Documentation
 
 - Default to Obsidian-compatible Markdown for documentation, research notes, plans, and decisions; use the obsidian-markdown skill when relevant.
